@@ -25,8 +25,11 @@ class OrderTracker:
         self.limits = []
         self.count = 0
 
-    def __sub__(self, Other):
+    def __sub__(self, rhs):
         size, limit = self.sizes[-1], self.limits[-1]
+
+        while rhs.search(limit):
+            pass
 
         return self
 
@@ -49,3 +52,6 @@ class OrderTracker:
         self.limits.pop()
 
         self.count -= 1
+
+    def search(self, limit):
+        pass
