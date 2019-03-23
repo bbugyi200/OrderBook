@@ -4,31 +4,31 @@ class OrderBook:
         self.Asks = OrderNode()
 
     def bid(self, size, limit):
-        self.order(N1=self.Bids,
-                   N2=self.Asks,
+        self.order(T1=self.Bids,
+                   T2=self.Asks,
                    key=lambda x, y: x <= y,
                    size=size,
                    limit=limit)
 
     def ask(self, size, limit):
-        self.order(N1=self.Asks,
-                   N2=self.Bids,
+        self.order(T1=self.Asks,
+                   T2=self.Bids,
                    key=lambda x, y: x >= y,
                    size=size,
                    limit=limit)
 
-    def order(self, N1, N2, key, size, limit):
-        search_size, search_limit = search_tree(N2, limit, key=key)
+    def order(self, T1, T2, key, size, limit):
+        search_size, search_limit = search_tree(T2, limit, key=key)
 
         if search_size == 0:
-            add_tree_node(N1, size, limit)
+            add_tree_node(T1, size, limit)
             return
 
         new_size = abs(size - search_size)
         if search_size < size:
-            self.order(N1, N2, key, new_size, limit)
+            self.order(T1, T2, key, new_size, limit)
         elif size < search_size:
-            add_tree_node(N2, new_size, search_limit)
+            add_tree_node(T2, new_size, search_limit)
 
 
 class OrderNode:
