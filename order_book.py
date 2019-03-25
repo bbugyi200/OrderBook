@@ -10,6 +10,9 @@ class OrderBook:
         self.Bids = OrderNode()
         self.Asks = OrderNode()
 
+    def __repr__(self):
+        return 'Bids: %s\nAsks: %s' % (self.Bids, self.Asks)
+
     def bid(self, size, limit):
         """Submit a Bid Order.
 
@@ -22,6 +25,7 @@ class OrderBook:
                     order_type='bid',
                     size=size,
                     limit=limit)
+        return self
 
     def ask(self, size, limit):
         """Submit an ask order.
@@ -35,6 +39,7 @@ class OrderBook:
                     order_type='ask',
                     size=size,
                     limit=limit)
+        return self
 
     def _order(self, T1, T2, order_type, size, limit):
         """Submit a generic limit order (either an 'ask' or a 'bid').
@@ -83,9 +88,6 @@ class OrderNode:
         self.left = self.right = self.parent = None
         self.size = size
         self.limit = limit
-
-    def __str__(self):
-        return repr(self)
 
     def __repr__(self):
         if self.size is None:
