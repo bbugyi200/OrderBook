@@ -1,9 +1,19 @@
+"""
+My attempt at designing a data structure to efficiently store limit orders.
+"""
+
+
 class OrderBook:
+    """Abstract Representation of an Order Book.
+
+    Specifically, this class tracks "limit" orders.
+    """
     def __init__(self):
         self.Bids = OrderNode()
         self.Asks = OrderNode()
 
     def bid(self, size, limit):
+        """Submit a Bid Order."""
         self._order(T1=self.Bids,
                     T2=self.Asks,
                     order_type='bid',
@@ -11,6 +21,7 @@ class OrderBook:
                     limit=limit)
 
     def ask(self, size, limit):
+        """Submit an Ask Order."""
         self._order(T1=self.Asks,
                     T2=self.Bids,
                     order_type='ask',
@@ -18,6 +29,18 @@ class OrderBook:
                     limit=limit)
 
     def _order(self, T1, T2, order_type, size, limit):
+        """Submit a General Order.
+
+        Args:
+            T1 (OrderNode): Order tree that will be added to.
+            T2 (OrderNode): Order tree that will be searched for entries
+                which can fill the currently requested order.
+            order_type (str): Either 'ask' or 'bid'.
+            size (int): Size of the order.
+            limit (float): Price limit of the order.
+        """
+        assert order_type in ['ask', 'bid'], 'Invalid order type: %s' % (order_type,)
+
         try:
             op = '<=' if order_type == 'bid' else '>='
             node = search_tree(T2, limit, op)
@@ -38,6 +61,12 @@ class OrderBook:
 #  Tree Algorithms                                                  #
 #####################################################################
 class OrderNode:
+    """Used to construct a tree data structure for storing limit orders.
+
+    Args:
+        size (int): Size of the order.
+        limit (float): Price limit of the order.
+    """
     def __init__(self, size=None, limit=None):
         self.left = self.right = self.parent = None
         self.size = size
@@ -61,6 +90,13 @@ class OrderNode:
 
 
 def add_tree_node(T, size, limit):
+    """Add node to an order tree.
+
+    Args:
+        T (OrderNode): The root of the order tree to add to.
+        size (int): Size of the order.
+        limit (float): Price limit of the order.
+    """
     if T.size is None and T.limit is None:
         T.size = size
         T.limit = limit
@@ -84,6 +120,11 @@ def add_tree_node(T, size, limit):
 
 
 def delete_tree_node(node):
+    """Deletes a node from an order tree.
+
+    Args:
+        node (OrderNode): The node to be deleted.
+    """
     if all([node.parent is None, node.left is None, node.right is None]):
         node.limit = None
         node.size = None
@@ -118,6 +159,14 @@ def delete_tree_node(node):
 
 
 def search_tree(T, limit, op):
+    """Binary search over an order tree.
+
+    Args:
+        T (OrderNode): The root of the order tree to search.
+        limit (float): Price limit of the order.
+        op (str): The comparison operator to use in the search.
+            Must be either '<=' or '>='.
+    """
     assert op in ['<=', '>='], "Invalid op argument: %s" % (op,)
 
     if op == '<=':
@@ -149,5 +198,6 @@ if __name__ == '__main__':
     ob.bid(50, 3)
     ob.ask(250, 3)
     ob.ask(600, 3.5)
+
     print(ob.Asks)
     print(ob.Bids)

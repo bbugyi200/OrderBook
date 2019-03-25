@@ -1,3 +1,8 @@
+"""Tests for the order_book.py module.
+
+Uses the 'pytest' testing framework.
+"""
+
 import pytest
 
 import order_book
@@ -19,6 +24,20 @@ def test_order_book2(ob):
     assert ob.Bids.size is None
     assert ob.Asks.limit == 5
     assert ob.Asks.size == 200
+
+
+def test_order_book3(ob):
+    ob.bid(1000, 5)
+    ob.ask(700, 6)
+
+    assert ob.Bids.size == 1000
+    assert ob.Asks.size == 700
+
+    ob.ask(1600, 4.5)
+
+    assert ob.Bids.size is None
+    assert ob.Asks.size == 700
+    assert ob.Asks.left.size == 600
 
 
 def test_delete_tree_node(ob):
