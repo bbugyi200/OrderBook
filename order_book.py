@@ -185,12 +185,14 @@ def search_tree(T, limit, op):
 
 if __name__ == '__main__':
     ob = OrderBook()
+
     ob.ask(400, 4)
     ob.ask(500, 5)
     ob.ask(300, 3)
 
     ob.bid(200, 5)
     ob.bid(50, 3)
+
     ob.ask(250, 3)
     ob.ask(600, 3.5)
 
