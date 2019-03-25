@@ -207,7 +207,10 @@ def search_tree(T, limit, op):
     if prev.limit is not None and search_key(prev.limit, limit):
         return prev
     else:
-        raise ValueError('Node not found.')
+        raise ValueError(
+            'No OrderNode could be found that matches the specified '
+            'search criteria.'
+        )
 
 
 if __name__ == '__main__':
