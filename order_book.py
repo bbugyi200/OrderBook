@@ -65,10 +65,6 @@ def add_tree_node(T, size, limit):
         prev.right = new_node
 
 
-def delete_tree_node(T, node):
-    pass
-
-
 def search_tree(T, limit, key):
     node = T
     while node is not None:
@@ -81,3 +77,7 @@ def search_tree(T, limit, key):
             node = node.right
 
     raise ValueError('Node not found.')
+
+
+def delete_tree_node(T, node):
+    pass
