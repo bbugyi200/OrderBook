@@ -1,7 +1,4 @@
-"""Tests for the order_book.py module.
-
-Uses the 'pytest' testing framework.
-"""
+"""Unit tests for the order_book.py module."""
 
 import pytest
 
