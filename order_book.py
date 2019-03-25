@@ -51,7 +51,7 @@ class OrderNode:
         if self.size is None:
             return "Empty Tree"
 
-        ret = "(%d,%d)" % (self.size, self.limit)
+        ret = "(%d, %0.1f)" % (self.size, self.limit)
         if self.left is not None:
             ret = '[%s] <-- %s' % (repr(self.left), ret)
 
@@ -82,27 +82,6 @@ def add_tree_node(T, size, limit):
         prev.left = new_node
     else:
         prev.right = new_node
-
-
-def search_tree(T, limit, key, direction):
-    node = T
-    ret = None
-    while node is not None and node.limit is not None:
-        if key(node.limit, limit):
-            ret = node
-            if direction == 'left':
-                node = node.left
-            elif direction == 'right':
-                node = node.right
-        elif limit <= node.limit:
-            node = node.left
-        else:
-            node = node.right
-
-    if ret is not None:
-        return ret
-    else:
-        raise ValueError('Node not found.')
 
 
 def delete_tree_node(node):
@@ -139,6 +118,27 @@ def delete_tree_node(node):
         node.right = new_node.right
 
 
+def search_tree(T, limit, key, direction):
+    node = T
+    ret = None
+    while node is not None and node.limit is not None:
+        if key(node.limit, limit):
+            ret = node
+            if direction == 'left':
+                node = node.left
+            elif direction == 'right':
+                node = node.right
+        elif limit <= node.limit:
+            node = node.left
+        else:
+            node = node.right
+
+    if ret is not None:
+        return ret
+    else:
+        raise ValueError('Node not found.')
+
+
 if __name__ == '__main__':
     ob = OrderBook()
     ob.ask(400, 4)
@@ -148,5 +148,6 @@ if __name__ == '__main__':
     ob.bid(200, 5)
     ob.bid(50, 3)
     ob.ask(250, 3)
+    ob.ask(600, 3.5)
     print(ob.Asks)
     print(ob.Bids)
