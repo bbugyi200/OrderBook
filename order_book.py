@@ -119,13 +119,13 @@ def delete_tree_node(node):
 
 def search_tree(T, limit, direction):
     node = T
-    ret = None
 
     if direction == 'left':
         search_key = lambda x, y: x <= y
     elif direction == 'right':
         search_key = lambda x, y: x >= y
 
+    ret = None
     while node is not None and node.limit is not None:
         if search_key(node.limit, limit):
             ret = node
