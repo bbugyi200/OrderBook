@@ -102,15 +102,6 @@ class OrderNode:
 
         return ret
 
-    def isRoot(self):
-        """
-        Predicate that checks if this order node is the root of the
-        order tree.
-        """
-        return all([self.parent is None,
-                    self.left is None,
-                    self.right is None])
-
     def isEmpty(self):
         """Predicate that checks if this order tree is empty.
 
@@ -118,7 +109,13 @@ class OrderNode:
         return True when) this node is the root of the order tree.
         """
         is_empty = self.size is None and self.limit is None
-        assert self.isRoot() or not is_empty, "OrderNode is empty but NOT root."
+
+        # Verify that NO other nodes exist if this node is empty.
+        is_only_node = all([self.parent is None,
+                            self.left is None,
+                            self.right is None])
+        if is_empty and not is_only_node:
+            raise RuntimeError("OrderNode is empty but other nodes exist.")
 
         return is_empty
 
