@@ -55,9 +55,6 @@ class OrderBook:
                 add_tree_node(T2, new_size, search_limit)
 
 
-#####################################################################
-#  Tree Algorithms                                                  #
-#####################################################################
 class OrderNode:
     """Used to construct a tree data structure that stores limit orders.
 
