@@ -53,10 +53,10 @@ class OrderNode:
 
         ret = "(%d,%d)" % (self.size, self.limit)
         if self.left is not None:
-            ret = repr(self.left) + ' <-- ' + ret
+            ret = '[%s] <-- %s' % (repr(self.left), ret)
 
         if self.right is not None:
-            ret = ret + ' --> ' + repr(self.right)
+            ret = '%s --> [%s]' % (ret, repr(self.right))
 
         return ret
 
