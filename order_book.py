@@ -178,6 +178,9 @@ def search_tree(T, limit, op):
         op (str): The comparison operator to use in the search.
             Must be either '<=' or '>='.
 
+    Returns:
+        OrderNode object that matches the search criteria.
+
     Exceptions:
         ValueError: Raised if no valid order can be found.
     """
