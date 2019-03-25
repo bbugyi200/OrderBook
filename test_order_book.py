@@ -13,13 +13,8 @@ def test_order_book1(ob):
 
 def test_order_book2(ob):
     ob.ask(700, 4)
-    print('Asks: %s' % (ob.Asks,))
     ob.ask(500, 5)
-    print('Asks: %s' % (ob.Asks,))
     ob.bid(1000, 5)
-    print('Asks: %s' % (ob.Asks,))
-
-    print('Bids: %s' % (ob.Bids,))
 
     assert ob.Bids.size is None
     assert ob.Asks.limit == 5
