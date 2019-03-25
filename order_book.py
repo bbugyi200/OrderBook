@@ -120,14 +120,13 @@ def delete_tree_node(node):
 def search_tree(T, limit, op):
     assert op in ['<=', '>='], "Invalid op argument: %s" % (op,)
 
-    node = T
-
     if op == '<=':
         search_key = lambda x, y: x <= y
     elif op == '>=':
         search_key = lambda x, y: x >= y
 
     ret = None
+    node = T
     while node is not None and node.limit is not None:
         if search_key(node.limit, limit):
             ret = node
