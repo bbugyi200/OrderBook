@@ -93,12 +93,12 @@ class OrderNode:
         if self.size is None:
             return "Empty Tree"
 
-        ret = "(%d, %0.1f)" % (self.size, self.limit)
+        ret = "[(%d, %0.1f)]" % (self.size, self.limit)
         if self.left is not None:
-            ret = '[%s] <-- %s' % (repr(self.left), ret)
+            ret = '[%s <-- %s]' % (repr(self.left), ret.strip('[]'))
 
         if self.right is not None:
-            ret = '%s --> [%s]' % (ret, repr(self.right))
+            ret = '[%s --> %s]' % (ret.strip('[]'), repr(self.right))
 
         return ret
 
