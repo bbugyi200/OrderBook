@@ -161,6 +161,9 @@ def search_tree(T, limit, op):
         limit (float): Price limit of the order.
         op (str): The comparison operator to use in the search.
             Must be either '<=' or '>='.
+
+    Exceptions:
+        ValueError: Raised if no valid order can be found.
     """
     assert op in ['<=', '>='], "Invalid op argument: %s" % (op,)
 
