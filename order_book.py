@@ -170,9 +170,9 @@ def delete_tree_node(node):
         node.right = new_node.right
     else:
         raise RuntimeError(
-            'Check the correctness of this algorithm. '
-            'The variable new_node is equal to None. '
-            'This should not be possible.'
+            'Check the correctness of this algorithm. The variable '
+            'new_node is equal to None, which should not be '
+            'possible.'
         )
 
 
