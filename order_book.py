@@ -112,8 +112,8 @@ class OrderNode:
     def isEmpty(self):
         """Predicate that checks if this order tree is empty.
 
-        This method should only be called (and should only return True) when
-        this node is the root of the order tree.
+        This method should only be called when (and should only
+        return True when) this node is the root of the order tree.
         """
         is_empty = self.size is None and self.limit is None
         assert self.isRoot() or not is_empty, "OrderNode is empty but NOT root."
