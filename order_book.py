@@ -19,8 +19,8 @@ class OrderBook:
 
     def _order(self, T1, T2, order_type, size, limit):
         try:
-            direction = 'left' if order_type == 'bid' else 'right'
-            node = search_tree(T2, limit, direction)
+            op = '<=' if order_type == 'bid' else '>='
+            node = search_tree(T2, limit, op)
             search_size = node.size
             search_limit = node.limit
             delete_tree_node(node)
@@ -117,21 +117,23 @@ def delete_tree_node(node):
         node.right = new_node.right
 
 
-def search_tree(T, limit, direction):
+def search_tree(T, limit, op):
+    assert op in ['<=', '>='], "Invalid op argument: %s" % (op,)
+
     node = T
 
-    if direction == 'left':
+    if op == '<=':
         search_key = lambda x, y: x <= y
-    elif direction == 'right':
+    elif op == '>=':
         search_key = lambda x, y: x >= y
 
     ret = None
     while node is not None and node.limit is not None:
         if search_key(node.limit, limit):
             ret = node
-            if direction == 'left':
+            if op == '<=':
                 node = node.left
-            elif direction == 'right':
+            elif op == '>=':
                 node = node.right
         elif limit <= node.limit:
             node = node.left
