@@ -11,8 +11,7 @@ def test_order_book1(ob):
 
     assert ob.Bids.size == 700
     assert ob.Bids.limit == 5
-    assert ob.Asks.size is None
-    assert ob.Asks.limit is None
+    assert ob.Asks.isEmpty()
 
 
 def test_order_book2(ob):
@@ -20,8 +19,7 @@ def test_order_book2(ob):
     ob.ask(500, 5)
     ob.bid(1000, 5)
 
-    assert ob.Bids.size is None
-    assert ob.Bids.limit is None
+    assert ob.Bids.isEmpty()
     assert ob.Asks.limit == 5
     assert ob.Asks.size == 200
 
@@ -37,8 +35,7 @@ def test_order_book3(ob):
 
     ob.ask(1600, 4.5)
 
-    assert ob.Bids.size is None
-    assert ob.Bids.limit is None
+    assert ob.Bids.isEmpty()
     assert ob.Asks.left.size == 600
     assert ob.Asks.left.limit == 4.5
 

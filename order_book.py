@@ -100,6 +100,26 @@ class OrderNode:
 
         return ret
 
+    def isRoot(self):
+        """
+        Predicate that checks if this order node is the root of the
+        order tree.
+        """
+        return all([self.parent is None,
+                    self.left is None,
+                    self.right is None])
+
+    def isEmpty(self):
+        """Predicate that checks if this order tree is empty.
+
+        This method should only be called (and should only return True) when
+        this node is the root of the order tree.
+        """
+        is_empty = self.size is None and self.limit is None
+        assert self.isRoot() or not is_empty, "OrderNode is empty but NOT root."
+
+        return is_empty
+
 
 def add_tree_node(T, size, limit):
     """Add node to an order tree.
@@ -109,7 +129,7 @@ def add_tree_node(T, size, limit):
         size (int): Size of the order.
         limit (float): Price limit of the order.
     """
-    if T.size is None and T.limit is None:
+    if T.isEmpty():
         T.size = size
         T.limit = limit
         return
