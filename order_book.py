@@ -84,7 +84,7 @@ def add_tree_node(T, size, limit):
 
 
 def delete_tree_node(node):
-    if node.parent is None and node.left is None and node.right is None:
+    if all([node.parent is None, node.left is None, node.right is None]):
         node.limit = None
         node.size = None
         return
