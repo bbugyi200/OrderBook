@@ -11,7 +11,12 @@ class OrderBook:
         self.Asks = OrderNode()
 
     def bid(self, size, limit):
-        """Submit a Bid Order."""
+        """Submit a Bid Order.
+
+        Args:
+            size (int): Size of the order.
+            limit (float): Price limit of the order.
+        """
         self._order(T1=self.Bids,
                     T2=self.Asks,
                     order_type='bid',
@@ -19,7 +24,12 @@ class OrderBook:
                     limit=limit)
 
     def ask(self, size, limit):
-        """Submit an ask order."""
+        """Submit an ask order.
+
+        Args:
+            size (int): Size of the order.
+            limit (float): Price limit of the order.
+        """
         self._order(T1=self.Asks,
                     T2=self.Bids,
                     order_type='ask',
