@@ -146,11 +146,17 @@ def delete_tree_node(node):
             node.parent.left = new_node
         elif node.parent.right == node:
             node.parent.right = new_node
-    else:
+    elif new_node is not None:
         node.size = new_node.size
         node.limit = new_node.limit
         node.left = new_node.left
         node.right = new_node.right
+    else:
+        raise RuntimeError(
+            'Check the correctness of this algorithm. '
+            'The variable new_node is equal to None. '
+            'This should not be possible.'
+        )
 
 
 def search_tree(T, limit, op):
