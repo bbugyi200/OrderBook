@@ -186,10 +186,8 @@ def search_tree(T, limit, op):
             Must be either '<=' or '>='.
 
     Returns:
-        OrderNode object that matches the search criteria.
-
-    Exceptions:
-        ValueError: Raised if no valid order can be found.
+        OrderNode object that matches the search criteria. If no
+        matching node can be found, a ValueError exception is raised.
     """
     assert op in ['<=', '>='], "Invalid op argument: %s" % (op,)
 
