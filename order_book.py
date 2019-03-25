@@ -1,13 +1,11 @@
 """
-My attempt at designing a data structure to efficiently store limit orders.
+My attempt at designing a data structure which efficiently tracks
+limit orders (i.e. bids and asks).
 """
 
 
 class OrderBook:
-    """Abstract Representation of an Order Book.
-
-    Specifically, this class tracks "limit" orders.
-    """
+    """Abstract representation of a limit order book."""
     def __init__(self):
         self.Bids = OrderNode()
         self.Asks = OrderNode()
@@ -21,7 +19,7 @@ class OrderBook:
                     limit=limit)
 
     def ask(self, size, limit):
-        """Submit an Ask Order."""
+        """Submit an ask order."""
         self._order(T1=self.Asks,
                     T2=self.Bids,
                     order_type='ask',
@@ -29,7 +27,7 @@ class OrderBook:
                     limit=limit)
 
     def _order(self, T1, T2, order_type, size, limit):
-        """Submit a General Order.
+        """Submit a generic limit order (either an 'ask' or a 'bid').
 
         Args:
             T1 (OrderNode): Order tree that will be added to.
@@ -61,7 +59,7 @@ class OrderBook:
 #  Tree Algorithms                                                  #
 #####################################################################
 class OrderNode:
-    """Used to construct a tree data structure for storing limit orders.
+    """Used to construct a tree data structure that stores limit orders.
 
     Args:
         size (int): Size of the order.
@@ -120,7 +118,7 @@ def add_tree_node(T, size, limit):
 
 
 def delete_tree_node(node):
-    """Deletes a node from an order tree.
+    """Delete a node from an order tree.
 
     Args:
         node (OrderNode): The node to be deleted.
@@ -169,11 +167,6 @@ def search_tree(T, limit, op):
     """
     assert op in ['<=', '>='], "Invalid op argument: %s" % (op,)
 
-    if op == '<=':
-        search_key = lambda x, y: x <= y
-    elif op == '>=':
-        search_key = lambda x, y: x >= y
-
     curr = prev = T
     while curr is not None and curr.limit is not None:
         prev = curr
@@ -181,6 +174,11 @@ def search_tree(T, limit, op):
             curr = curr.left
         elif op == '>=':
             curr = curr.right
+
+    if op == '<=':
+        search_key = lambda x, y: x <= y
+    elif op == '>=':
+        search_key = lambda x, y: x >= y
 
     if prev.limit is not None and search_key(prev.limit, limit):
         return prev
