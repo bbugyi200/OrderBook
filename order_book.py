@@ -102,6 +102,12 @@ class OrderNode:
 
         return ret
 
+    def isOnlyNode(self):
+        """Predicate that returns True if this node is the only node in the tree."""
+        return all([self.parent is None,
+                    self.left is None,
+                    self.right is None])
+
     def isEmpty(self):
         """Predicate that checks if this order tree is empty.
 
@@ -111,10 +117,7 @@ class OrderNode:
         is_empty = self.size is None and self.limit is None
 
         # Verify that NO other nodes exist if this node is empty.
-        is_only_node = all([self.parent is None,
-                            self.left is None,
-                            self.right is None])
-        if is_empty and not is_only_node:
+        if is_empty and not self.isOnlyNode():
             raise RuntimeError("OrderNode is empty but other nodes exist.")
 
         return is_empty
@@ -156,7 +159,7 @@ def delete_tree_node(node):
     Args:
         node (OrderNode): The node to be deleted.
     """
-    if all([node.parent is None, node.left is None, node.right is None]):
+    if node.isOnlyNode():
         node.limit = None
         node.size = None
         return
