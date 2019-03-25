@@ -122,12 +122,12 @@ def search_tree(T, limit, direction):
     ret = None
 
     if direction == 'left':
-        key = lambda x, y: x <= y
+        search_key = lambda x, y: x <= y
     elif direction == 'right':
-        key = lambda x, y: x >= y
+        search_key = lambda x, y: x >= y
 
     while node is not None and node.limit is not None:
-        if key(node.limit, limit):
+        if search_key(node.limit, limit):
             ret = node
             if direction == 'left':
                 node = node.left
