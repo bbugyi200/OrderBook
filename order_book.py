@@ -125,22 +125,16 @@ def search_tree(T, limit, op):
     elif op == '>=':
         search_key = lambda x, y: x >= y
 
-    ret = None
-    node = T
-    while node is not None and node.limit is not None:
-        if search_key(node.limit, limit):
-            ret = node
-            if op == '<=':
-                node = node.left
-            elif op == '>=':
-                node = node.right
-        elif limit <= node.limit:
-            node = node.left
-        else:
-            node = node.right
+    curr = prev = T
+    while curr is not None and curr.limit is not None:
+        prev = curr
+        if op == '<=':
+            curr = curr.left
+        elif op == '>=':
+            curr = curr.right
 
-    if ret is not None:
-        return ret
+    if prev.limit is not None and search_key(prev.limit, limit):
+        return prev
     else:
         raise ValueError('Node not found.')
 
