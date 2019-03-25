@@ -52,8 +52,10 @@ class OrderBook:
         try:
             op = '<=' if order_type == 'bid' else '>='
             node = search_tree(T2, limit, op)
+
             search_size = node.size
             search_limit = node.limit
+
             delete_tree_node(node)
         except ValueError:
             add_tree_node(T1, size, limit)
@@ -63,6 +65,11 @@ class OrderBook:
                 self._order(T1, T2, order_type, new_size, limit)
             elif size < search_size:
                 add_tree_node(T2, new_size, search_limit)
+            elif size == search_size:
+                # No action required. Both orders (ask and bid)
+                # have already been removed from their respective
+                # order trees.
+                pass
 
 
 class OrderNode:
