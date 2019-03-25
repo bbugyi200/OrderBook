@@ -6,19 +6,20 @@ class OrderBook:
     def bid(self, size, limit):
         self._order(T1=self.Bids,
                     T2=self.Asks,
-                    direction='left',
+                    order_type='bid',
                     size=size,
                     limit=limit)
 
     def ask(self, size, limit):
         self._order(T1=self.Asks,
                     T2=self.Bids,
-                    direction='right',
+                    order_type='ask',
                     size=size,
                     limit=limit)
 
-    def _order(self, T1, T2, direction, size, limit):
+    def _order(self, T1, T2, order_type, size, limit):
         try:
+            direction = 'left' if order_type == 'bid' else 'right'
             node = search_tree(T2, limit, direction)
             search_size = node.size
             search_limit = node.limit
@@ -28,7 +29,7 @@ class OrderBook:
         else:
             new_size = abs(size - search_size)
             if size > search_size:
-                self._order(T1, T2, direction, new_size, limit)
+                self._order(T1, T2, order_type, new_size, limit)
             elif size < search_size:
                 add_tree_node(T2, new_size, search_limit)
 
